@@ -6,8 +6,8 @@ const sequelize = new Sequelize(
     // process.env.DB_NAME,
     // process.env.DB_USER,
     // process.env.DB_PASS,
-    'shrimpsClothes', // Nombre de la base de datos
-    'root',           // Usuario de la base de datos
+    'shrimpsClothes',
+    'root',          
     '1234',
     {
         host: 'localhost',

@@ -3,7 +3,7 @@ const { syncDB } = require("./models/index");
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded())
+app.use(express.urlencoded({}))
 
 const startServer = async () => {
     await syncDB();

@@ -15,8 +15,12 @@ User.hasMany(ItemFavorites, { foreignKey: "user_id", as: "favoriteItems" });
 Item.hasMany(ItemFavorites, { foreignKey: "item_id", as: "favoritedByUsers" });
 
 const syncDB = async () => {
-    await sequelize.sync({ alter: true });
-    console.log("Base de datos sincronizada 🎉");
+    try {
+        await sequelize.sync({ force: true });
+        console.log("Base de datos sincronizada.");
+    } catch (error) {
+        console.error("Error al sincronizar la base de datos:", error);
+    }
 };
 
 module.exports = { User, Item, UserFavorites, ItemFavorites, syncDB };
