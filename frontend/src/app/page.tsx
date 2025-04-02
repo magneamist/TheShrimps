@@ -4,7 +4,7 @@ import { AlertDialogDemo } from "@/components/dialog-demo";
 export default function Home() {
   return (
     <div>
-      <Button variant="default">Default</Button>
+      <Button variant="default">hæ sæta</Button>
       <AlertDialogDemo />
     </div>
   );
