@@ -1,10 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { AlertDialogDemo } from "@/components/dialog-demo";
+import { UserGreeting } from "@/components/user-greeting";
 
 export default function Home() {
   return (
     <div>
-      <Button variant="default">Default</Button>
+      <UserGreeting />
+      {/* <h1>Hi, {user.username || "User"} </h1> */}
+      <Button variant="default">default</Button>
       <AlertDialogDemo />
     </div>
   );

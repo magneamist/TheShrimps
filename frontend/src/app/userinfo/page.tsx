@@ -1,5 +1,11 @@
 import React from "react";
+import { UserButton } from "@clerk/nextjs";
 
 export default function UserInfo() {
-  return <div>UserInfo</div>;
+  return (
+    <div>
+      <h1>User Info</h1>
+      <UserButton />
+    </div>
+  );
 }
