@@ -38,12 +38,10 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --black-shrimp: #000000;
-  --white-shrimp: #ffffff;
-  --pink-shrimp: #C9A9A6;
-  --lightPink-shirmp: #E9DDDB;
-  --blue-shrimp: #6A7B8C;
-  --yellow-shrimp: #F2C94C;
+  --pink: #C9A9A6;
+  --lightPink: #E9DDDB;
+  --blue: #6A7B8C;
+  --yellow: #F2C94C;
 
 
 }
