@@ -56,10 +56,15 @@ itemController.post('/item', upload.single('image'), async (req, res) => {
             return res.status(400).json({ message: 'Missing required fields' });
         }
 
+        if (!name || !description || !price || !seller_id || !userSell_id) {
+            return res.status(400).json({ message: 'Missing required fields' });
+        }
+        
         const image = req.file ? req.file.filename : null;
-        if (!image) {
+        if (!image && !req.body.image) {
             return res.status(400).json({ message: 'Image is required' });
         }
+        
 
         const newItem = await itemModel.create({
             name,
