@@ -11,7 +11,7 @@ UserDetailModel.init({
     allowNull: false
   },
 
-  clerk_user_id: {  // Identificador de Clerk
+  clerk_user_id: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
@@ -56,9 +56,4 @@ UserDetailModel.init({
   profile_image: {  // Nombre consistente con la tabla
     type: DataTypes.STRING
   },
-
-  // created_at: {
-  //   type: DataTypes.DATE,
-  //   defaultValue: DataTypes.NOW
-  // }
 })
