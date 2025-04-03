@@ -1,23 +1,25 @@
 import sequelize from '../configs/dbConfig.js';
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 
-import { itemModel } from '../models/itemModel.js';
-import { userDetailModel } from '../models/userDetailModel.js';
-
-export class itemFavoriteModel extends Model {}
-
-itemFavoriteModel.init({
+// Definir la estructura de la tabla
+const itemFavoriteTable = {
+  name: 'ItemFavorite',
+  cols: {
     user_id: {
-        type: DataTypes.INTEGER,
-        allownull: false
+      type: DataTypes.INTEGER,
+      allowNull: false
     },
-
     item_id: {
-        type: DataTypes.INTEGER,
-        allownull: false
-    },
+      type: DataTypes.INTEGER,
+      allowNull: false
+    }
+  }
+};
+
+// Definir el modelo con sequelize.define
+const itemFavoriteModel = sequelize.define(itemFavoriteTable.name, itemFavoriteTable.cols, {
+  timestamps: false  // No agrega createdAt y updatedAt automáticamente
 });
 
-itemFavoriteModel.belongsTo(itemModel, { foreignKey: "item_id", as: "item"})
-itemFavoriteModel.belongsTo(userDetailModel, { foreignKey: "user_id", as: "user"})
-
+// Exportar el modelo
+export { itemFavoriteModel };
