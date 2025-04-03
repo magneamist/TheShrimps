@@ -3,8 +3,6 @@ import { itemModel } from '../models/itemModel.js';
 
 export const itemController = express.Router();
 
-const url = 'item'
-
 itemController.get('/item', async (req, res) => {
     try {
         const result = await itemModel.findAll();

@@ -7,7 +7,7 @@ dbController.get('/test', async (req, res) => {
     try {
         await dbConfig.authenticate();
         console.log('Connected.');
-        res.send('Connected to Database.');
+        res.send('Connected to database.');
     } catch (error) {
         console.error('Error:', error);
         res.status(500).send('Could not connect.');
