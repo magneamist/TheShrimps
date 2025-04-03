@@ -1,8 +1,6 @@
-// models/userDetailModel.js
 import sequelize from '../configs/dbConfig.js';
 import { DataTypes } from 'sequelize';
 
-// Definir las columnas de la tabla de usuario (estructura de la tabla)
 const userDetailTable = {
   name: 'UserDetail',
   cols: {
@@ -51,10 +49,8 @@ const userDetailTable = {
   }
 };
 
-// Usamos sequelize.define para crear el modelo
 const userDetailModel = sequelize.define(userDetailTable.name, userDetailTable.cols, {
   timestamps: true
 });
 
-// Exportamos correctamente en minúsculas
 export { userDetailModel };

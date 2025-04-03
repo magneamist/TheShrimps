@@ -1,7 +1,6 @@
 import sequelize from '../configs/dbConfig.js';
 import { DataTypes } from 'sequelize';
 
-// Definir la estructura de la tabla
 const itemFavoriteTable = {
   name: 'ItemFavorite',
   cols: {
@@ -16,10 +15,8 @@ const itemFavoriteTable = {
   }
 };
 
-// Definir el modelo con sequelize.define
 const itemFavoriteModel = sequelize.define(itemFavoriteTable.name, itemFavoriteTable.cols, {
-  timestamps: false  // No agrega createdAt y updatedAt automáticamente
+  timestamps: false
 });
 
-// Exportar el modelo
 export { itemFavoriteModel };

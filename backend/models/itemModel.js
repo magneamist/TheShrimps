@@ -1,7 +1,6 @@
 import sequelize from '../configs/dbConfig.js';
 import { DataTypes } from 'sequelize';
 
-// Definir la estructura de la tabla
 const itemTable = {
   name: 'Item',
   cols: {
@@ -42,13 +41,16 @@ const itemTable = {
     image: {
       type: DataTypes.STRING,
       allowNull: false,
-    }
+    },
+    userSell_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+  }
   }
 };
 
-// Crear el modelo en Sequelize
 const itemModel = sequelize.define(itemTable.name, itemTable.cols, {
   timestamps: true
 });
 
-export { itemModel };
+export { itemModel }; 
