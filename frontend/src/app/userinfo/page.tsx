@@ -1,4 +1,4 @@
-import { UserButton, SignOutButton } from "@clerk/nextjs";
+import { SignOutButton } from "@clerk/nextjs";
 
 export default function UserInfo() {
   return (
