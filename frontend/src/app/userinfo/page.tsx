@@ -1,11 +1,10 @@
-import React from "react";
-import { UserButton } from "@clerk/nextjs";
+import { SignOutButton } from "@clerk/nextjs";
 
 export default function UserInfo() {
   return (
     <div>
       <h1>User Info</h1>
-      <UserButton />
+      <SignOutButton />
     </div>
   );
 }
