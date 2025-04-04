@@ -2,7 +2,6 @@ import sequelize from '../configs/dbConfig.js';
 import { DataTypes } from 'sequelize';
 import { userDetailModel } from './userDetailModel.js';
 
-// Definir la estructura de la tabla
 const userFavoriteTable = {
   name: 'UserFavorite',
   cols: {
@@ -21,12 +20,10 @@ const userFavoriteTable = {
   }
 };
 
-// Crear el modelo con sequelize.define
 const userFavoriteModel = sequelize.define(userFavoriteTable.name, userFavoriteTable.cols, {
   timestamps: true
 });
 
-// Definir las relaciones
 userFavoriteModel.belongsTo(userDetailModel, { foreignKey: "user_id", as: "user" });
 userFavoriteModel.belongsTo(userDetailModel, { foreignKey: "favorite_user_id", as: "favoriteUser" });
 
