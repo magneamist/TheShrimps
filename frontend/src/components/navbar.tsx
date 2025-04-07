@@ -34,7 +34,7 @@ const NavbarIcon: React.FC<{
       aria-label={item.label}
     >
       <Icon
-        stroke={isActive ? "var(--pink-shrimp)" : "#000000"}
+        stroke={isActive ? "var(--pink)" : "#000000"}
         size="35"
         strokeWidth={isActive ? "2.5" : "1.5"}
       />
