@@ -29,7 +29,7 @@ export default function RootLayout({
             </div>
           </SignedOut>
           <SignedIn>
-            <main className="container mx-auto px-4 pt-4 pb-[68px]">
+            <main className="container mx-auto px-4 pt-4 h-(--screen-wo-navbar)">
               {children}
             </main>
             <Navbar />

@@ -43,6 +43,8 @@
   --blue: #6A7B8C;
   --yellow: #F2C94C;
 
+  --screen-wo-navbar: calc(100vh - 68px);
+
 
 }
 
