@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/search-bar";
 import { HeartIcon } from "@/assets/icons";
 import CartItem from "@/components/cart-item";
+import ItemCard from "@/components/item-card1";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         >
           Size
         </Button>
+        <ItemCard />
         <Button className="w-60 h-fit py-4">Add to bag</Button>
         <Button className="w-60 h-fit py-4 bg-(--blue) hover:bg-(--blue)/70">
           Add to favorite <HeartIcon stroke="white" strokeWidth="3" />
