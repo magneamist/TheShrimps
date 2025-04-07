@@ -18,8 +18,8 @@ app.use(express.json());
 // 👇 Clerk middleware - ¡esto es clave!
 app.use(ClerkExpressWithAuth());
 
-// Tus rutas
-app.use(dbController, itemController, userDetailController);
+app.use("/api", userDetailRoutes);
+app.use("/api", itemRoutes);
 
 // Ruta 404 por si no matchea ninguna
 app.get('*', (req, res) => {
