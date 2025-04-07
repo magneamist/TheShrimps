@@ -248,8 +248,8 @@ export const ArrowIcon = ({
   const directions: { [key: string]: number } = {
     down: 0,
     up: 180,
-    right: -90,
-    left: 90,
+    right: 90,
+    left: -90,
   };
 
   const rotation = directions[direction];

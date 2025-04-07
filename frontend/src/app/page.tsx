@@ -20,8 +20,8 @@ export default function Home() {
           Size
         </Button>
         <ItemCard />
-        <Button className="w-60 h-fit py-4">Add to bag</Button>
-        <Button className="w-60 h-fit py-4 bg-(--blue) hover:bg-(--blue)/70">
+        <Button size={"lg"}>Add to bag</Button>
+        <Button size={"lg"} className="bg-(--blue) hover:bg-(--blue)/70">
           Add to favorite <HeartIcon stroke="white" strokeWidth="3" />
         </Button>
         <Button variant={"outline"}>Maria shrimp</Button>
