@@ -1,10 +1,6 @@
-import express from "express";
+import { itemModel } from "../models/itemModel.js";
 import multer from "multer";
 import path from "path";
-import { itemModel } from "../models/itemModel.js";
-import { userDetailModel } from "../models/userDetailModel.js";
-
-export const itemController = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -17,7 +13,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-itemController.get("/item", async (req, res) => {
+// Funciones de controlador
+export const getItems = async (req, res) => {
   const { limit = 10, offset = 0 } = req.query;
   try {
     const items = await itemModel.findAndCountAll({
@@ -29,9 +26,9 @@ itemController.get("/item", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error getting items." });
   }
-});
+};
 
-itemController.get("/item/:id([0-9]+)", async (req, res) => {
+export const getItemById = async (req, res) => {
   try {
     const item = await itemModel.findOne({
       where: { id: req.params.id },
@@ -46,9 +43,9 @@ itemController.get("/item/:id([0-9]+)", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error getting the item." });
   }
-});
+};
 
-itemController.post("/item", upload.single("image"), async (req, res) => {
+export const createItem = async (req, res) => {
   try {
     const {
       name,
@@ -61,10 +58,6 @@ itemController.post("/item", upload.single("image"), async (req, res) => {
       bought_id,
       userSell_id,
     } = req.body;
-
-    if (!name || !description || !price || !seller_id || !userSell_id) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
 
     if (!name || !description || !price || !seller_id || !userSell_id) {
       return res.status(400).json({ message: "Missing required fields" });
@@ -93,54 +86,50 @@ itemController.post("/item", upload.single("image"), async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error creating the item." });
   }
-});
+};
 
-itemController.put(
-  "/item/:id([0-9]+)",
-  upload.single("image"),
-  async (req, res) => {
-    const { id } = req.params;
-    try {
-      const item = await itemModel.findByPk(id);
+export const updateItem = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const item = await itemModel.findByPk(id);
 
-      if (!item) {
-        return res.status(404).json({ message: "Item not found" });
-      }
-
-      const {
-        name,
-        description,
-        size,
-        price,
-        tag,
-        favorite,
-        seller_id,
-        bought_id,
-      } = req.body;
-
-      let image = req.file ? req.file.filename : item.image;
-
-      await item.update({
-        name,
-        description,
-        size,
-        price,
-        tag,
-        favorite,
-        seller_id,
-        bought_id,
-        image,
-      });
-
-      res.json({ message: "Item successfully updated", item });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error updating the item." });
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
     }
-  }
-);
 
-itemController.delete("/item/:id([0-9]+)", async (req, res) => {
+    const {
+      name,
+      description,
+      size,
+      price,
+      tag,
+      favorite,
+      seller_id,
+      bought_id,
+    } = req.body;
+
+    let image = req.file ? req.file.filename : item.image;
+
+    await item.update({
+      name,
+      description,
+      size,
+      price,
+      tag,
+      favorite,
+      seller_id,
+      bought_id,
+      image,
+    });
+
+    res.json({ message: "Item successfully updated", item });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error updating the item." });
+  }
+};
+
+export const deleteItem = async (req, res) => {
   const { id } = req.params;
   try {
     const item = await itemModel.findByPk(id);
@@ -156,4 +145,4 @@ itemController.delete("/item/:id([0-9]+)", async (req, res) => {
     console.error(error);
     res.status(500).json({ message: "Error deleting the item." });
   }
-});
+};

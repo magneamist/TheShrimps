@@ -1,5 +1,5 @@
 import sequelize from '../configs/dbConfig.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { userDetailModel } from './userDetailModel.js';
 
 const itemModel = sequelize.define('Item', {
@@ -51,9 +51,19 @@ const itemModel = sequelize.define('Item', {
   image: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  timestamps: true
+  timestamps: false // Desactivamos los timestamps automáticos
 });
 
 itemModel.belongsTo(userDetailModel, { foreignKey: 'seller_id', as: 'seller' });

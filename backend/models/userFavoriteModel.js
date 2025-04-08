@@ -1,5 +1,5 @@
 import sequelize from '../configs/dbConfig.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { userDetailModel } from './userDetailModel.js';
 
 const userFavoriteModel = sequelize.define('UserFavorite', {
@@ -21,12 +21,18 @@ const userFavoriteModel = sequelize.define('UserFavorite', {
     },
     onDelete: 'CASCADE'
   },
-  created_at: {
+  createdAt: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
 }, {
-  timestamps: true
+  timestamps: false // Desactivamos los timestamps automáticos
 });
 
 userFavoriteModel.belongsTo(userDetailModel, { foreignKey: 'user_id', as: 'user' });

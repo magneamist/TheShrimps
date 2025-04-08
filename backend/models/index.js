@@ -1,5 +1,4 @@
 import sequelize from '../configs/dbConfig.js';
-
 import { itemModel } from "./itemModel.js";
 import { itemFavoriteModel } from "./itemFavoriteModel.js";
 import { userDetailModel } from "./userDetailModel.js";
