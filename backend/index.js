@@ -1,10 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { syncDB } from './models/index.js';
-import { dbController } from './controllers/dbController.js';
-import { itemController } from './controllers/itemController.js';
-import { userDetailController } from './controllers/userDetailController.js';
-import { ClerkExpressWithAuth } from '@clerk/clerk-sdk-node'; // 👈 importar Clerk
+import userDetailRoutes from './routes/userDetailRoutes.js';
+import itemRoutes from './routes/itemRoutes.js';  // Verifica que este esté importado correctamente
+
+import { ClerkExpressWithAuth } from '@clerk/clerk-sdk-node';
 
 dotenv.config();
 
@@ -15,13 +15,12 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// 👇 Clerk middleware - ¡esto es clave!
 app.use(ClerkExpressWithAuth());
 
+// Asegúrate de que las rutas se registren correctamente
 app.use("/api", userDetailRoutes);
 app.use("/api", itemRoutes);
 
-// Ruta 404 por si no matchea ninguna
 app.get('*', (req, res) => {
     res.status(404).json({
         message: "404 Not Found"
