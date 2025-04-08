@@ -3,8 +3,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import fileUpload from 'express-fileupload';
-import path from 'path';
-const __dirname = path.resolve();
 
 import { dbController } from './controllers/dbController.js'
 import { itemController } from './controllers/itemController.js'

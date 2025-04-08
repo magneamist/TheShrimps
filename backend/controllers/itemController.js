@@ -27,23 +27,6 @@ itemController.get('/item/:id([0-9]+)', async (req, res) => {
     }
 })
 
-// itemController.post('/item', async (req, res) => {
-//     try {
-//         const { image } = req.files
-
-//         if (!image) return res.sendStatus(400)
-    
-//         image.mv(__dirname + '/files/' + image.name)
-
-//         const price = parseInt(req.body.price);
-//         const result = await itemModel.create({...req.body, price});
-//         res.json(result);
-//         res.sendStatus(200);
-//     } catch (error) {
-//         console.error(error);
-//     }
-// })
-
 itemController.post('/item', async (req, res) => {
     console.log('OK')
     try {
