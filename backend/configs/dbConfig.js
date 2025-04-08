@@ -9,7 +9,8 @@ const dbConfig = new Sequelize(
     // process.env.DB_PASS,
     "shrimpsclothes",
     "root",
-    "1234",
+    // "1234",
+    "Alumno2425",
     {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
