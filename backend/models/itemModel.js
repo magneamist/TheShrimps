@@ -40,7 +40,7 @@ const itemTable = {
       type: DataTypes.INTEGER,
       allowNull: true
     },
-    imageUrl: {
+    imageName: {
       type: DataTypes.STRING,
       allowNull: false
     }

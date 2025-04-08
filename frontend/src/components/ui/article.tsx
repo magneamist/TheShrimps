@@ -57,7 +57,7 @@ const FileUpload: React.FC = () => {
           onChange={handleFileChange}
           name='image'
           type='file'
-          style={{ width: '200px', height: '100px' }}
+          style={{ width: '200px', height: '200px' }}
         />
         <input onChange={(e) => setTitle(e.target.value)}type='text' name='title'></input>
         <input onChange={(e) => setDesc(e.target.value)}type='text' name='desc'></input>

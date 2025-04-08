@@ -39,13 +39,13 @@ itemController.post('/item', async (req, res) => {
         // Save the image
         await image.mv(__dirname + '/files/' + image.name);
 
-        const size = parseInt(req.body.size);
-
         // Parse the price
         const price = parseInt(req.body.price);
 
+        const imageName = image.name;
+
         // Create the item
-        const result = await itemModel.create({ ...req.body, price, size });
+        const result = await itemModel.create({ ...req.body, imageName, price });
 
         // Send the result
         res.status(200).json(result);
