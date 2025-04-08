@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 
 type Item = {
   id: number;
+  seller_id: string;
+  seller_name: string;
   imageName: string;
   name: string;
   description: string;
@@ -40,6 +42,8 @@ const GetItems: React.FC = () => {
       {items.map((item) => (
         <li key={item.id}>
           <img src={`http://localhost:4000/images/${item.imageName}`} style={{ width: '200px', height: '100px' }}></img>
+          {item.seller_id}
+          {item.seller_name}
           {item.name}
           {item.description}
           {item.size}

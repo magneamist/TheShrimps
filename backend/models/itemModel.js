@@ -33,8 +33,12 @@ const itemTable = {
       type: DataTypes.ENUM("YES", "NO")
     },
     seller_id: {
-      type: DataTypes.INTEGER,
-      allowNull: true
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    seller_name: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     bought_id: {
       type: DataTypes.INTEGER,

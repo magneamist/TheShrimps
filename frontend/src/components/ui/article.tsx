@@ -1,5 +1,8 @@
 "use client";
 
+import { useUser } from '@clerk/nextjs';
+import { currentUser } from '@clerk/nextjs/server';
+
 import React from 'react';
 import { useState, ChangeEvent, FormEvent } from 'react';
 
@@ -9,6 +12,8 @@ const FileUpload: React.FC = () => {
   const [desc, setDesc] = useState<string>("");
   const [size, setSize] = useState<string>("S");
   const [price, setPrice] = useState<string>("");
+
+  const { user } = useUser()
 
   // Update handler to set state
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -21,11 +26,13 @@ const FileUpload: React.FC = () => {
   const uploadFile = async (e?: FormEvent): Promise<void> => {
     if (e) e.preventDefault();
 
-    if (file && title && desc && size && price) {
+    if (file &&user?.id &&user.fullName && title && desc && size && price) {
       const formData = new FormData;
       console.log(title, desc, size, price)
   
       formData.append("name", title)
+      formData.append("seller_id", user?.id)
+      formData.append("seller_name", user.fullName)
       formData.append("description", desc)
       formData.append("size", size)
       formData.append("price", price)
