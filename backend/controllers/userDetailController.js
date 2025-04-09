@@ -39,33 +39,6 @@ export const userDetailController = {
     }
   },
 
-  login: async (req, res) => {
-    try {
-      const { email, password } = req.body;
-
-      if (!email || !password) {
-        return res.status(400).json({ message: "Email and password are required." });
-      }
-
-      const user = await clerk.users.verifyPassword({ email, password });
-
-      if (!user) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      const session = await clerk.sessions.create({ userId: user.id });
-
-      res.json({
-        message: "Login successful",
-        token: session.jwtToken,
-        clerk_user_id: user.id,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error logging in." });
-    }
-  },
-
   // Método para obtener detalles del usuario desde la base de datos
   getUserDetails: async (req, res) => {
     try {

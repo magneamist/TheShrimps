@@ -8,6 +8,9 @@ import Navbar from "@/components/navbar";
 function AuthContent({ children }: { children: React.ReactNode }) {
   const { session, isSignedIn, user } = useClerk(); // Obtiene la sesión y el usuario directamente
   const [token, setToken] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const [userDetails, setUserDetails] = useState<any>(null);
 
   // Función para obtener el token de la sesión
   useEffect(() => {
@@ -27,8 +30,11 @@ function AuthContent({ children }: { children: React.ReactNode }) {
   const sendRequestToBackend = async () => {
     if (!token) return;
 
+    setLoading(true); // Indicamos que estamos esperando la respuesta
+    setError(null); // Resetear error antes de hacer la solicitud
+
     try {
-      const response = await fetch("http://localhost:4000/userdetail", {
+      const response = await fetch("http://localhost:4000/api/userdetail", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`, // Incluye el token en las cabeceras
@@ -37,13 +43,17 @@ function AuthContent({ children }: { children: React.ReactNode }) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch user details");
+        throw new Error(`Failed to fetch user details: ${response.statusText}`);
       }
 
       const data = await response.json();
+      setUserDetails(data); // Guarda los detalles del usuario en el estado
       console.log("Response from backend:", data);
-    } catch (error) {
+    } catch (error: any) {
+      setError(error.message); // Guarda el error en el estado
       console.error("Error sending request:", error);
+    } finally {
+      setLoading(false); // Indicamos que ya se terminó de hacer la solicitud
     }
   };
 
@@ -63,6 +73,14 @@ function AuthContent({ children }: { children: React.ReactNode }) {
       </SignedOut>
       <SignedIn>
         <main className="container mx-auto px-4 pt-4 h-(--screen-wo-navbar)">
+          {loading && <p>Loading user details...</p>}
+          {error && <p className="text-red-500">{error}</p>} {/* Muestra el error si ocurre */}
+          {userDetails && (
+            <div>
+              <h2>User Details</h2>
+              <pre>{JSON.stringify(userDetails, null, 2)}</pre> {/* Muestra los detalles del usuario */}
+            </div>
+          )}
           {children}
         </main>
         <Navbar />
