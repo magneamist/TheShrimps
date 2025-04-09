@@ -3,7 +3,6 @@ import { Urbanist } from "next/font/google";
 import "./globals.css";
 import {
   ClerkProvider,
-  SignIn,
   SignInButton,
   SignUpButton,
   SignedIn,

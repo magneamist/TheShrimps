@@ -1,5 +1,5 @@
 import { SignOutButton } from "@clerk/nextjs";
-import { getUserId, getUserDetails } from "../data/queries";
+import { getUserId } from "../data/queries";
 
 export default async function UserInfo() {
   // const userDetails = await getUserDetails();
