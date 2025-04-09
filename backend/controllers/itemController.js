@@ -1,148 +1,76 @@
-import { itemModel } from "../models/itemModel.js";
-import multer from "multer";
-import path from "path";
+import express from 'express';
+import { itemModel } from '../models/itemModel.js';
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+export const itemController = express.Router();
+
+import path from 'path';
+
+const __dirname = path.resolve();
+
+itemController.get('/item', async (req, res) => {
+    try {
+        const result = await itemModel.findAll();
+        res.json(result);
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+itemController.get('/item/:id([0-9]+)', async (req, res) => {
+    try {
+        const result = await itemModel.findOne({
+            where: { id: req.params.id }
+        });
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+    }
+})
+
+itemController.post('/item', async (req, res) => {
+    console.log('OK')
+    try {
+        if (!req.files || !req.files.image) {
+            return res.status(400).send('No image file uploaded.');
+        }
+
+        const image = req.files.image;
+
+        await image.mv(__dirname + '/files/' + image.name);
+
+        const price = parseInt(req.body.price);
+
+        const imageName = image.name;
+
+        const result = await itemModel.create({ ...req.body, imageName, price });
+
+        res.status(200).json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: error.message });
+    }
 });
 
-const upload = multer({ storage });
 
-// Funciones de controlador
-export const getItems = async (req, res) => {
-  const { limit = 10, offset = 0 } = req.query;
-  try {
-    const items = await itemModel.findAndCountAll({
-      limit: parseInt(limit),
-      offset: parseInt(offset),
-    });
-    res.json(items);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error getting items." });
-  }
-};
-
-export const getItemById = async (req, res) => {
-  try {
-    const item = await itemModel.findOne({
-      where: { id: req.params.id },
-    });
-
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
+itemController.put('/item/:id([0-9]+)', async (req, res) => {
+    try {
+        const { id } = req.params
+        const result = await itemModel.update(req.body, {
+            where: { id: id }
+        });
+        res.json({id, ...req.body});
+    } catch (error) {
+        console.error(error);
     }
+})
 
-    res.json(item);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error getting the item." });
-  }
-};
-
-export const createItem = async (req, res) => {
-  try {
-    const {
-      name,
-      description,
-      size,
-      price,
-      tag,
-      favorite,
-      seller_id,
-      bought_id,
-      userSell_id,
-    } = req.body;
-
-    if (!name || !description || !price || !seller_id || !userSell_id) {
-      return res.status(400).json({ message: "Missing required fields" });
+itemController.delete('/item/:id([0-9]+)', async (req, res) => {
+    try {
+        const result = await itemModel.destroy({
+            where: { id: req.params.id }
+        });
+        res.json({message: "Record deleted."});
+    } catch (error) {
+        console.error(error);
     }
-
-    const image = req.file ? req.file.filename : null;
-    if (!image && !req.body.image) {
-      return res.status(400).json({ message: "Image is required" });
-    }
-
-    const newItem = await itemModel.create({
-      name,
-      description,
-      size,
-      price,
-      tag,
-      favorite,
-      seller_id,
-      bought_id,
-      image,
-      userSell_id,
-    });
-
-    res.status(201).json(newItem);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error creating the item." });
-  }
-};
-
-export const updateItem = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const item = await itemModel.findByPk(id);
-
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
-    }
-
-    const {
-      name,
-      description,
-      size,
-      price,
-      tag,
-      favorite,
-      seller_id,
-      bought_id,
-    } = req.body;
-
-    let image = req.file ? req.file.filename : item.image;
-
-    await item.update({
-      name,
-      description,
-      size,
-      price,
-      tag,
-      favorite,
-      seller_id,
-      bought_id,
-      image,
-    });
-
-    res.json({ message: "Item successfully updated", item });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error updating the item." });
-  }
-};
-
-export const deleteItem = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const item = await itemModel.findByPk(id);
-
-    if (!item) {
-      return res.status(404).json({ message: "Item not found" });
-    }
-
-    await item.destroy();
-
-    res.json({ message: "Item successfully deleted" });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error deleting the item." });
-  }
-};
+})

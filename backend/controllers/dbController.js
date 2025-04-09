@@ -19,6 +19,6 @@ dbController.get('/sync', async (req, res) => {
         await dbConfig.sync({ force: true });
         res.send('Synchronized.');
     } catch (error) {
-        res.status(500).send('Error:', error);
+        res.status(500).send(`Error: ${error.message}`);
     }
-})
+});
