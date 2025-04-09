@@ -4,7 +4,7 @@ import Header from "@/components/ui/header";
 
 export default function Cart() {
   return (
-    <div className="relative flex flex-col items-center justify-between h-full pb-5">
+    <div className="flex flex-col items-center justify-between h-full pb-5">
       <Header title="My cart" />
 
       <div className="flex flex-col gap-3 w-full h-full pb-4 overflow-y-auto">

@@ -2,7 +2,7 @@
 
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('UserDetails', {
+    await queryInterface.createTable('userdetails', { // Asegúrate de que el nombre sea en minúsculas
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -48,17 +48,17 @@ export default {
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Agregado
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         type: Sequelize.DATE,
         allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // Agregado
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       }
     });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('UserDetails');
+    await queryInterface.dropTable('userdetails'); // Usa el nombre correcto de la tabla
   }
 };
