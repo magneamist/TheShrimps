@@ -6,8 +6,21 @@
   "author": "",
   "license": "ISC",
   "description": "",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "migrate": "sequelize-cli db:migrate",
+    "seed": "sequelize-cli db:seed:all",
+    "////////////////////////// - 4": "COMMENT: Normal use scripts to migrate and start XREATE backend",
+    "migrate-and-start": "npm run migrate && npm run start",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "////////////////////////// - 3": "COMMENT: ATTENTION!!! db:reset & db:reset-and-start will reset XREATE database",
+    "db:reset-and-start": "npm run db:reset && npm run start",
+    "db:migrate-and-start": "npx sequelize-cli db:migrate && npm start"
+  },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^4.13.23",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -19,12 +32,5 @@
   "devDependencies": {
     "nodemon": "^3.1.9",
     "sequelize-cli": "^6.6.2"
-  },
-  "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "migrate": "sequelize-cli db:migrate",
-    "seed": "sequelize-cli db:seed:all",
-    "migrate-and-start": "npm run migrate && npm run start"
   }
 }
