@@ -56,7 +56,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="fixed bottom-0 flex justify-between w-full p-4 bg-white shadow-lg border-t border-gray-200">
+    <nav className="fixed bottom-0 flex justify-between w-full p-4 bg-white">
       {navItems.map((item) => (
         <NavbarIcon
           key={item.path}
