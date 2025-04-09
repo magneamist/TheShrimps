@@ -1,5 +1,4 @@
 import sequelize from '../configs/dbConfig.js';
-
 import { itemModel } from "./itemModel.js";
 import { itemFavoriteModel } from "./itemFavoriteModel.js";
 import { userDetailModel } from "./userDetailModel.js";
@@ -16,7 +15,7 @@ itemModel.hasMany(itemFavoriteModel, { foreignKey: "item_id", as: "favoritedByUs
 
 const syncDB = async () => {
     try {
-        await sequelize.sync({ force: true });
+        await sequelize.sync({ alter: true });
         console.log("Base de datos sincronizada.");
     } catch (error) {
         console.error("Error al sincronizar la base de datos:", error);

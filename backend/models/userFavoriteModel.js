@@ -1,33 +1,41 @@
 import sequelize from '../configs/dbConfig.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { userDetailModel } from './userDetailModel.js';
 
-// Definir la estructura de la tabla
-const userFavoriteTable = {
-  name: 'UserFavorite',
-  cols: {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+const userFavoriteModel = sequelize.define('UserFavorite', {
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'UserDetails',
+      key: 'id'
     },
-    favorite_user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    onDelete: 'CASCADE'
+  },
+  favorite_user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'UserDetails',
+      key: 'id'
     },
-    created_at: {
-      type: DataTypes.DATE,
-      defaultValue: DataTypes.NOW
-    }
+    onDelete: 'CASCADE'
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
   }
-};
-
-// Crear el modelo con sequelize.define
-const userFavoriteModel = sequelize.define(userFavoriteTable.name, userFavoriteTable.cols, {
-  timestamps: true
+}, {
+  timestamps: false // Desactivamos los timestamps automáticos
 });
 
-// Definir las relaciones
-userFavoriteModel.belongsTo(userDetailModel, { foreignKey: "user_id", as: "user" });
-userFavoriteModel.belongsTo(userDetailModel, { foreignKey: "favorite_user_id", as: "favoriteUser" });
+userFavoriteModel.belongsTo(userDetailModel, { foreignKey: 'user_id', as: 'user' });
+userFavoriteModel.belongsTo(userDetailModel, { foreignKey: 'favorite_user_id', as: 'favoriteUser' });
 
 export { userFavoriteModel };
