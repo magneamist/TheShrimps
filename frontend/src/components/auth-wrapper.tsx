@@ -16,13 +16,20 @@ function AuthContent({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const fetchToken = async () => {
       if (session) {
-        const token = await session.getToken();
-        setToken(token); // Establece el token cuando la sesión esté activa
+        try {
+          const token = await session.getToken();
+          setToken(token); // Establece el token cuando la sesión esté activa
+        } catch (err) {
+          console.error("Error getting token:", err);
+          setError("Failed to get token.");
+        }
       }
     };
 
     if (isSignedIn) {
       fetchToken();
+    } else {
+      setToken(null); // Reseteamos el token si no está firmado
     }
   }, [session, isSignedIn]);
 
@@ -50,7 +57,7 @@ function AuthContent({ children }: { children: React.ReactNode }) {
       setUserDetails(data); // Guarda los detalles del usuario en el estado
       console.log("Response from backend:", data);
     } catch (error: any) {
-      setError(error.message); // Guarda el error en el estado
+      setError(`Error: ${error.message}`); // Guarda el error en el estado
       console.error("Error sending request:", error);
     } finally {
       setLoading(false); // Indicamos que ya se terminó de hacer la solicitud
