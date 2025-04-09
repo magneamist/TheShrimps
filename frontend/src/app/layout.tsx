@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
 import { Urbanist } from "next/font/google";
 import "./globals.css";
-import AuthWrapper from "@/components/auth-wrapper";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
+import Navbar from "@/components/navbar";
 
 const urbanist = Urbanist({
   variable: "--font-urbanist",
@@ -21,7 +28,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${urbanist.variable} antialiased`}>
-        <AuthWrapper>{children}</AuthWrapper>
+        <ClerkProvider>
+          <SignedOut>
+            <div className="flex flex-col items-center justify-center h-screen">
+              <SignInButton />
+              <SignUpButton />
+            </div>
+          </SignedOut>
+          <SignedIn>
+            <main className="container mx-auto px-4 pt-4 h-(--screen-wo-navbar)">
+              {children}
+            </main>
+            <Navbar />
+          </SignedIn>
+        </ClerkProvider>
       </body>
     </html>
   );

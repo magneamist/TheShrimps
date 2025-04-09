@@ -20,9 +20,9 @@ export default function ProfileCard() {
   const userName = user?.fullName || user?.username || "User";
 
   return (
-    <div className="flex flex-row">
-      <Card className="w-36 h-52 py-2 flex items-center justify-center shadow-none border-(--lightPink)">
-        <CardContent className="h-fit flex flex-col items-center gap-2 px-3">
+    <div className="col-span-6 sm:col-span-4 flex flex-col items-center gap-1">
+      <Card className="w-full h-52 py-4 flex flex-col items-center shadow-none border-(--lightPink)">
+        <CardContent className="h-full flex flex-col items-center gap-2">
           <div className="relative w-[100px] h-[100px]">
             <Image
               src={profileImage}
@@ -36,7 +36,6 @@ export default function ProfileCard() {
           <CardTitle className="text-center font-normal leading-normal">
             {userName}
           </CardTitle>
-
           <StarRating
             rating={rating}
             size="small"
