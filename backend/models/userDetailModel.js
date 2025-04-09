@@ -1,5 +1,5 @@
 import sequelize from '../configs/dbConfig.js';
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 
 const userDetailModel = sequelize.define('UserDetail', {
   id: {
@@ -43,9 +43,19 @@ const userDetailModel = sequelize.define('UserDetail', {
   },
   profile_image: {
     type: DataTypes.STRING
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP') // o `new Date()`
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'), // o `new Date()`
   }
 }, {
-  timestamps: true
+  timestamps: false // Desactivamos los timestamps automáticos
 });
 
 export { userDetailModel };
