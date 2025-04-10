@@ -1,7 +1,7 @@
 import { DataTypes, Sequelize } from 'sequelize';
 
 export default (sequelize) => {
-  const UserDetail = sequelize.define('UserDetail', {
+  const UserDetail = sequelize.define('userdetails', {
     id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false },
     clerk_user_id: { type: DataTypes.STRING, allowNull: false, unique: true },
     firstname: { type: DataTypes.STRING, allowNull: false },
