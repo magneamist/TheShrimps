@@ -1,41 +1,32 @@
-import sequelize from '../configs/dbConfig.js';
 import { DataTypes, Sequelize } from 'sequelize';
-import { userDetailModel } from './userDetailModel.js';
 
-const userFavoriteModel = sequelize.define('UserFavorite', {
-  user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'UserDetails',
-      key: 'id'
+export default (sequelize) => {
+  const UserFavorite = sequelize.define('UserFavorite', {
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'userdetails', key: 'id' },
+      onDelete: 'CASCADE'
     },
-    onDelete: 'CASCADE'
-  },
-  favorite_user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'UserDetails',
-      key: 'id'
+    favorite_user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'userdetails', key: 'id' },
+      onDelete: 'CASCADE'
     },
-    onDelete: 'CASCADE'
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
-  }
-}, {
-  timestamps: false // Desactivamos los timestamps automáticos
-});
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+    }
+  }, {
+    timestamps: false
+  });
 
-userFavoriteModel.belongsTo(userDetailModel, { foreignKey: 'user_id', as: 'user' });
-userFavoriteModel.belongsTo(userDetailModel, { foreignKey: 'favorite_user_id', as: 'favoriteUser' });
-
-export { userFavoriteModel };
+  return UserFavorite;
+};

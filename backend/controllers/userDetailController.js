@@ -1,7 +1,8 @@
 import { Clerk } from "@clerk/clerk-sdk-node";
-import { userDetailModel } from "../models/userDetailModel.js";
+import db from "../models/index.js";
 
-// Inicializa Clerk con tu clave secreta
+const { userDetailModel } = db;
+
 const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
 export const userDetailController = {
@@ -68,7 +69,17 @@ export const userDetailController = {
 
   createUserDetail: async (req, res) => {
     try {
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       if (!clerk_user_id || !firstname || !lastname || !email) {
         return res.status(400).json({ message: "Missing required fields" });
@@ -105,7 +116,17 @@ export const userDetailController = {
         return res.status(404).json({ message: "User not found." });
       }
 
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       let profile_image = req.file ? req.file.filename : user.profile_image;
 
