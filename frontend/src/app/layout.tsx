@@ -41,7 +41,7 @@ export default function RootLayout({
               <div className="flex flex-col items-center gap-2">
                 <p>Already have an account?</p>
                 <SignInButton>
-                  <Button className="w-36">Sign in</Button>
+                  <Button className="w-36">Log in</Button>
                 </SignInButton>
               </div>
             </div>
