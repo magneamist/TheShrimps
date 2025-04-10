@@ -1,8 +1,15 @@
+"use client";
 import ItemCard from "@/components/item-card1";
+import { useItems } from "@/hooks/useItems";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export default function FavoriteItems() {
+  const { items, loading, error } = useItems();
+
+  if (loading) return <p>Fetching items...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="flex flex-col gap-2 h-(--screen-wo-navbar)">
       <Link
@@ -14,14 +21,9 @@ export default function FavoriteItems() {
       </Link>
       <p>Favoite items</p>
       <div className="inline-grid grid-cols-12 gap-5 pb-5 w-full overflow-y-auto">
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
+        {items.map((item) => (
+          <ItemCard key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );
