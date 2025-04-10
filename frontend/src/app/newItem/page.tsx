@@ -1,5 +1,9 @@
-
+import ItemList from "@/components/item-list";
 
 export default function NewItem() {
-  return <div>NewItem</div>;
+  return (
+    <div>
+      <ItemList />
+    </div>
+  );
 }

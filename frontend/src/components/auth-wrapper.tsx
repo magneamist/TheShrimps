@@ -1,6 +1,12 @@
 "use client";
 
-import { ClerkProvider, SignIn, SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  SignIn,
+  SignedIn,
+  SignedOut,
+  useClerk,
+} from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import Navbar from "@/components/navbar";
 
@@ -74,11 +80,13 @@ function AuthContent({ children }: { children: React.ReactNode }) {
       <SignedIn>
         <main className="container mx-auto px-4 pt-4 h-(--screen-wo-navbar)">
           {loading && <p>Loading user details...</p>}
-          {error && <p className="text-red-500">{error}</p>} {/* Muestra el error si ocurre */}
+          {error && <p className="text-red-500">{error}</p>}{" "}
+          {/* Muestra el error si ocurre */}
           {userDetails && (
             <div>
               <h2>User Details</h2>
-              <pre>{JSON.stringify(userDetails, null, 2)}</pre> {/* Muestra los detalles del usuario */}
+              <pre>{JSON.stringify(userDetails, null, 2)}</pre>{" "}
+              {/* Muestra los detalles del usuario */}
             </div>
           )}
           {children}

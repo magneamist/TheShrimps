@@ -5,7 +5,7 @@ export default function CartItem() {
   return (
     <div className="flex items-center px-3 py-2 w-full gap-3 border border-(--lightPink) rounded-2xl">
       <Image
-        src="/blank-profile.png"
+        src="/clothing-placeholder.png"
         alt="Cart Item"
         width={80}
         height={80}

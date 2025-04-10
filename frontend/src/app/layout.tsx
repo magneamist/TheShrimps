@@ -31,8 +31,14 @@ export default function RootLayout({
         <ClerkProvider>
           <SignedOut>
             <div className="flex flex-col items-center justify-center h-screen">
-              <SignInButton />
-              <SignUpButton />
+              <div>
+                <p>Already have an account?</p>
+                <SignInButton />
+              </div>
+              <div>
+                <p>You new?</p>
+                <SignUpButton />
+              </div>
             </div>
           </SignedOut>
           <SignedIn>

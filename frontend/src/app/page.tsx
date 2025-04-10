@@ -1,14 +1,18 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/search-bar";
 import ItemCard from "@/components/item-card1";
+import { useItems } from "../hooks/useItems";
 
 export default function Home() {
+  const { items, loading, error } = useItems();
+
+  if (loading) return <p>Fetching items...</p>;
+  if (error) return <p>Error: {error}</p>;
+
   return (
     <div className="flex flex-col items-center justify-center h-full gap-2">
-      <div
-        id="modify"
-        className="flex flex-col items-center justify-center gap-2 w-full"
-      >
+      <div className="flex flex-col items-center justify-center sm:items-start gap-2 w-full">
         <SearchBar />
         <div className="flex flex-col items-start justify-center gap-1 w-full">
           <p className="text-sm">Filters</p>
@@ -23,42 +27,29 @@ export default function Home() {
               variant={"outline"}
               className="w-fit h-fit px-3 py-1.5 text-sm border-(--lightPink) hover:bg-(--lightPink) rounded-xl"
             >
-              Discount
+              Price
             </Button>
             <Button
               variant={"outline"}
               className="w-fit h-fit px-3 py-1.5 text-sm border-(--lightPink) hover:bg-(--lightPink) rounded-xl"
             >
-              Size
+              With discount
             </Button>
+
             <Button
               variant={"outline"}
               className="w-fit h-fit px-3 py-1.5 text-sm border-(--lightPink) hover:bg-(--lightPink) rounded-xl"
             >
-              Size
-            </Button>
-            <Button
-              variant={"outline"}
-              className="w-fit h-fit px-3 py-1.5 text-sm border-(--lightPink) hover:bg-(--lightPink) rounded-xl"
-            >
-              Size
+              Clothing item
             </Button>
           </div>
         </div>
       </div>
       <div className="inline-grid grid-cols-12 gap-5 pb-5 w-full overflow-y-auto">
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
-        <ItemCard />
+        {items.map((item) => (
+          <ItemCard key={item.id} item={item} />
+        ))}
       </div>
-      {/* <Button size={"lg"}>Add to bag</Button>
-      <Button size={"lg"} className="bg-(--blue) hover:bg-(--blue)/70">
-        Add to favorite <HeartIcon stroke="white" strokeWidth="3" />
-      </Button>
-      <Button variant={"outline"}>Maria shrimp</Button>
-      <CartItem /> */}
     </div>
   );
 }

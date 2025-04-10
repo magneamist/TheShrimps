@@ -1,5 +1,4 @@
 import { SignOutButton } from "@clerk/nextjs";
-import { getUserId } from "../data/queries";
 
 export default async function UserInfo() {
   // const userDetails = await getUserDetails();
@@ -10,10 +9,9 @@ export default async function UserInfo() {
   // const fullName = `${firstName} ${lastName}`;
   // const profileImage = userDetails.profileImage || "/blank-profile.png";
 
-  const userId = await getUserId();
   return (
     <div>
-      <h1>Hi, {userId}</h1>
+      <h1>Hi,</h1>
       <SignOutButton />
     </div>
   );
