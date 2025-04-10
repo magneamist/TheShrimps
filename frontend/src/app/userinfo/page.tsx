@@ -1,6 +1,9 @@
 import { SignOutButton } from "@clerk/nextjs";
 import { getUserId } from "../data/queries";
 
+import Header from "@/components/ui/header";
+import Dropdowns from "@/components/ui/user";
+
 export default async function UserInfo() {
   // const userDetails = await getUserDetails();
   // if (!userDetails) {
@@ -12,9 +15,10 @@ export default async function UserInfo() {
 
   const userId = await getUserId();
   return (
-    <div>
+    <>
       <h1>Hi, {userId}</h1>
       <SignOutButton />
-    </div>
+      <Dropdowns />
+    </>
   );
 }
