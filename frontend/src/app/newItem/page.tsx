@@ -1,9 +1,11 @@
-import ItemList from "@/components/item-list";
+import Header from "@/components/ui/header";
+import ArticlePost from "@/components/ui/article-post";
 
 export default function NewItem() {
   return (
-    <div>
-      <ItemList />
-    </div>
-  );
+    <>
+      <Header title="Create Article"/>
+      <ArticlePost />
+    </>
+  )
 }
