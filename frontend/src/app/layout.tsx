@@ -9,6 +9,7 @@ import {
   SignedOut,
 } from "@clerk/nextjs";
 import Navbar from "@/components/navbar";
+import { Button } from "@/components/ui/button";
 
 const urbanist = Urbanist({
   variable: "--font-urbanist",
@@ -30,14 +31,18 @@ export default function RootLayout({
       <body className={`${urbanist.variable} antialiased`}>
         <ClerkProvider>
           <SignedOut>
-            <div className="flex flex-col items-center justify-center h-screen">
-              <div>
-                <p>Already have an account?</p>
-                <SignInButton />
+            <div className="flex flex-col items-center justify-center h-screen gap-16">
+              <div className="flex flex-col items-center gap-2">
+                <p>Create your account</p>
+                <SignUpButton>
+                  <Button className="bg-(--blue) w-36">Sign up</Button>
+                </SignUpButton>
               </div>
-              <div>
-                <p>You new?</p>
-                <SignUpButton />
+              <div className="flex flex-col items-center gap-2">
+                <p>Already have an account?</p>
+                <SignInButton>
+                  <Button className="w-36">Sign in</Button>
+                </SignInButton>
               </div>
             </div>
           </SignedOut>
