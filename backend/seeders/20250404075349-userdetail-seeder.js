@@ -32,11 +32,11 @@ export default {
         updatedAt: new Date()
       }
     ];
-    console.log('Data to insert into UserDetails:', usersData);
-    await queryInterface.bulkInsert('UserDetails', usersData, {});
+    console.log('Data to insert into userdetails:', usersData);
+    await queryInterface.bulkInsert('userdetails', usersData, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('UserDetails', null, {});
+    await queryInterface.bulkDelete('userdetails', null, {});
   }
 };

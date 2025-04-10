@@ -1,25 +1,47 @@
-import sequelize from '../configs/dbConfig.js';
-import { itemModel } from "./itemModel.js";
-import { itemFavoriteModel } from "./itemFavoriteModel.js";
-import { userDetailModel } from "./userDetailModel.js";
-import { userFavoriteModel } from "./userFavoriteModel.js";
+import Sequelize from 'sequelize';
+import configFile from '../config/config.js';
 
-userDetailModel.hasMany(itemModel, { foreignKey: "userSell_id", as: "itemsSold" });
-userDetailModel.hasMany(itemModel, { foreignKey: "bought_id", as: "itemsBought" });
+import defineItem from './itemModel.js';
+import defineUserDetail from './userDetailModel.js';
+import defineItemFavorite from './itemFavoriteModel.js';
+import defineUserFavorite from './userFavoriteModel.js';
 
-userDetailModel.hasMany(userFavoriteModel, { foreignKey: "user_id", as: "favorites" });
-userDetailModel.hasMany(userFavoriteModel, { foreignKey: "favorite_user_id", as: "favoritedBy" });
+const env = process.env.NODE_ENV || 'development';
+const config = configFile[env];
 
-userDetailModel.hasMany(itemFavoriteModel, { foreignKey: "user_id", as: "favoriteItems" });
-itemModel.hasMany(itemFavoriteModel, { foreignKey: "item_id", as: "favoritedByUsers" });
+const sequelize = config.use_env_variable
+  ? new Sequelize(process.env[config.use_env_variable], config)
+  : new Sequelize(config.database, config.username, config.password, config);
 
-const syncDB = async () => {
-    try {
-        await sequelize.sync({ alter: true });
-        console.log("Base de datos sincronizada.");
-    } catch (error) {
-        console.error("Error al sincronizar la base de datos:", error);
-    }
+const db = {};
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+// Definir modelos
+db.UserDetail = defineUserDetail(sequelize);
+db.Item = defineItem(sequelize);
+db.UserFavorite = defineUserFavorite(sequelize);
+db.ItemFavorite = defineItemFavorite(sequelize);
+
+// Asociaciones
+db.Item.belongsTo(db.UserDetail, { foreignKey: 'seller_id', as: 'seller' });
+db.Item.belongsTo(db.UserDetail, { foreignKey: 'bought_id', as: 'buyer' });
+
+db.ItemFavorite.belongsTo(db.UserDetail, { foreignKey: 'user_id', as: 'user' });
+db.ItemFavorite.belongsTo(db.Item, { foreignKey: 'item_id', as: 'item' });
+
+db.UserFavorite.belongsTo(db.UserDetail, { foreignKey: 'user_id', as: 'user' });
+db.UserFavorite.belongsTo(db.UserDetail, { foreignKey: 'favorite_user_id', as: 'favoriteUser' });
+
+// Sincronización opcional
+db.syncDB = async () => {
+  try {
+    await sequelize.sync({ force: true }); // Cambiá esto a `false` si querés mantener datos
+    console.log("Base de datos sincronizada.");
+  } catch (err) {
+    console.error("Error al sincronizar la base de datos:", err);
+  }
 };
 
-export { userDetailModel, itemModel, userFavoriteModel, itemFavoriteModel, syncDB };
+export default db;

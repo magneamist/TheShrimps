@@ -34,7 +34,7 @@ export default {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "UserDetails",
+          model: "userdetails",
           key: "id"
         },
         onDelete: 'CASCADE'
@@ -42,7 +42,7 @@ export default {
       bought_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "UserDetails",
+          model: "userdetails",
           key: "id"
         },
         onDelete: 'SET NULL'

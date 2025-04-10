@@ -1,7 +1,9 @@
 import { Clerk } from "@clerk/clerk-sdk-node";
-import { userDetailModel } from "../models/userDetailModel.js";
+import db from "../models/index.js";
 
-const clerk = new Clerk({ apiKey: process.env.CLERK_API_KEY });
+const { userDetailModel } = db;
+
+const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
 export const userDetailController = {
   signup: async (req, res) => {
@@ -39,50 +41,20 @@ export const userDetailController = {
     }
   },
 
-  // Método para obtener detalles del usuario desde la base de datos
   getUserDetails: async (req, res) => {
     try {
-      const token = req.headers['authorization']?.replace('Bearer ', ''); // Obtener el token de la cabecera
-
-      if (!token) {
-        return res.status(400).json({ message: "Token is required" });
-      }
-
-      // Verificar el token con Clerk
-      const user = await clerk.sessions.verifySession(token);
-
-      if (!user) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-
-      // Si el token es válido, obtenemos los detalles de los usuarios
       const users = await userDetailModel.findAll();
       res.json(users);
-
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error getting users." });
     }
   },
 
-  // Método para obtener los detalles de un usuario específico por su ID
   getUserDetailById: async (req, res) => {
     const { id } = req.params;
 
     try {
-      const token = req.headers['authorization']?.replace('Bearer ', '');
-
-      if (!token) {
-        return res.status(400).json({ message: "Token is required" });
-      }
-
-      // Verificar el token con Clerk
-      const user = await clerk.sessions.verifySession(token);
-
-      if (!user) {
-        return res.status(401).json({ message: "Unauthorized" });
-      }
-
       const userDetail = await userDetailModel.findByPk(id);
       if (!userDetail) {
         return res.status(404).json({ message: "User not found." });
@@ -95,10 +67,19 @@ export const userDetailController = {
     }
   },
 
-  // Crear detalles del usuario
   createUserDetail: async (req, res) => {
     try {
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       if (!clerk_user_id || !firstname || !lastname || !email) {
         return res.status(400).json({ message: "Missing required fields" });
@@ -126,7 +107,6 @@ export const userDetailController = {
     }
   },
 
-  // Actualizar detalles del usuario
   updateUserDetail: async (req, res) => {
     const { id } = req.params;
 
@@ -136,7 +116,17 @@ export const userDetailController = {
         return res.status(404).json({ message: "User not found." });
       }
 
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       let profile_image = req.file ? req.file.filename : user.profile_image;
 
@@ -160,7 +150,6 @@ export const userDetailController = {
     }
   },
 
-  // Eliminar detalles del usuario
   deleteUserDetail: async (req, res) => {
     const { id } = req.params;
 
