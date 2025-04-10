@@ -1,17 +1,34 @@
-import { Clerk } from '@clerk/clerk-sdk-node';
+// import { Clerk } from "@clerk/clerk-sdk-node";
 
-export const verifyToken = async (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
+// // Inicializa Clerk con tu clave secreta
+// const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
-  if (!token) {
-    return res.status(401).json({ message: 'No token provided' });
-  }
+// export const verifyToken = async (req, res, next) => {
+//   const token = req.headers['authorization']?.replace('Bearer ', ''); // Obtiene el token del header
 
-  try {
-    const clerkUser = await Clerk.verifySessionToken(token);
-    req.user = clerkUser;
-    next();
-  } catch (error) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
-  }
-};
+//   if (!token) {
+//     // console.error("Token is missing in request header.");
+//     return res.status(400).json({ message: "Token is required" });
+//   }
+
+//   try {
+//     console.log("Verifying token: ", token);  // Debugging
+
+//     // Verifica el token con Clerk
+//     const user = await clerk.sessions.verifySession(token);
+
+//     if (!user) {
+//       console.error("User not found with the token.");
+//       return res.status(401).json({ message: "Unauthorized" });
+//     }
+
+//     // Agrega el usuario verificado a la solicitud
+//     req.user = user;
+//     console.log("User verified: ", user);  // Debugging
+
+//     next();  // Llama al siguiente middleware o controlador
+//   } catch (error) {
+//     console.error("Error verifying session:", error);  // Log completo del error
+//     res.status(500).json({ message: "Error verifying token." });
+//   }
+// };

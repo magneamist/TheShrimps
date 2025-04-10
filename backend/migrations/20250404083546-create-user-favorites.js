@@ -13,7 +13,7 @@ export default {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'UserDetails',
+          model: 'userdetails',
           key: 'id'
         },
         onDelete: 'CASCADE'
@@ -22,7 +22,7 @@ export default {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'UserDetails',
+          model: 'userdetails',
           key: 'id'
         },
         onDelete: 'CASCADE'
