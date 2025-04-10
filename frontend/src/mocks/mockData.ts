@@ -11,8 +11,7 @@ export const mockItems: Item[] = [
     favorite: "NO",
     seller_id: 1,
     seller_name: "John Smith",
-    image: "nike.jpg"
-  },
+    image: "/nike-sneaker1.png"},
   {
     id: 2,
     name: "Adidas T-shirt",
@@ -23,7 +22,7 @@ export const mockItems: Item[] = [
     favorite: "YES",
     seller_id: 2,
     seller_name: "Emma Johnson",
-    image: "adidas.jpg"
+    image: "/adidasT.avif"
   },
   {
     id: 3,
@@ -35,7 +34,7 @@ export const mockItems: Item[] = [
     favorite: "NO",
     seller_id: 3,
     seller_name: "Michael Brown",
-    image: "puma.jpg"
+    image: "/puma-jacket.avif"
   },
   {
     id: 4,
@@ -47,7 +46,7 @@ export const mockItems: Item[] = [
     favorite: "YES",
     seller_id: 1, 
     seller_name: "John Smith",
-    image: "reebok.jpg"
+    image: "/reebook-shoes.webp"
   },
   {
     id: 5,
@@ -59,7 +58,7 @@ export const mockItems: Item[] = [
     favorite: "NO",
     seller_id: 4,
     seller_name: "Sarah Davis",
-    image: "levis.jpg"
+    image: "/levis.webp"
   },
   {
     id: 6,
@@ -71,6 +70,6 @@ export const mockItems: Item[] = [
     favorite: "NO",
     seller_id: 5,
     seller_name: "Alex Wilson",
-    image: "underarmour.jpg"
+    image: "/UnderArmour.avif"
   },
 ];

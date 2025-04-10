@@ -12,17 +12,29 @@ type ItemCardProps = {
 export default function ItemCard({ item }: ItemCardProps) {
   const [imageError, setImageError] = useState(false);
 
-  // Determine the image source
+  // // Determine the image source
+  // const imageUrl =
+  //   item.image && !imageError ? item.image : "/clothing-placeholder.png";
+  // // ? `http://localhost:4000/images/${item.image}`
+  // // : "/clothing-placeholder.png";
+
+  // For demo, use image paths directly from public folder
+  // If image path doesn't start with '/', add it (for public folder)
+
+  const normalizedImagePath =
+    item.image && !item.image.startsWith("/") ? `/${item.image}` : item.image;
+
+  // Use image path or fallback to placeholder
   const imageUrl =
-    item.image && !imageError
-      ? `http://localhost:4000/images/${item.image}`
+    normalizedImagePath && !imageError
+      ? normalizedImagePath
       : "/clothing-placeholder.png";
 
   return (
     <>
       <Link
         href={`/item/${item.id}`}
-        className="relative col-span-6 sm:col-span-4 flex flex-col items-center gap-1 border border-(--lightPink) rounded-2xl p-2 hover:scale-105 transition duration-200 ease-in-out"
+        className="relative col-span-6 sm:col-span-4 flex flex-col items-center gap-1 rounded-2xl hover:scale-105 transition duration-200 ease-in-out"
       >
         <div className="w-full h-44 relative">
           <Image
@@ -35,7 +47,7 @@ export default function ItemCard({ item }: ItemCardProps) {
             onError={() => setImageError(true)}
           />
         </div>
-        <div className="flex justify-between w-full">
+        <div className="flex justify-between w-full px-2 pb-2">
           <p className="text-sm truncate">{item.name}</p>
           <p className="text-sm">
             $

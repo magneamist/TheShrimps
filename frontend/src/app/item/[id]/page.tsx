@@ -60,11 +60,22 @@ export default function ItemPage() {
       </div>
     );
 
-  // Determine the image source
+  // For demo, use image paths directly from public folder
+  // If image path doesn't start with '/', add it (for public folder)
+  const normalizedImagePath =
+    item.image && !item.image.startsWith("/") ? `/${item.image}` : item.image;
+
+  // Use image path or fallback to placeholder
   const imageUrl =
-    item.image && !imageError
-      ? `http://localhost:4000/images/${item.image}`
+    normalizedImagePath && !imageError
+      ? normalizedImagePath
       : "/clothing-placeholder.png";
+
+  // // Determine the image source
+  // const imageUrl =
+  //   item.image && !imageError
+  //     ? `http://localhost:4000/images/${item.image}`
+  //     : "/clothing-placeholder.png";
 
   const navigateToCart = () => {
     router.push("/cart");
@@ -90,20 +101,21 @@ export default function ItemPage() {
               onError={() => setImageError(true)}
             />
           </div>
-          <div className="w-full">
-            <div className="flex justify-between items-end">
-              <h2 className="text-2xl">{item.name}</h2>
-              <span className="text-2xl">
+          <div className="flex flex-col">
+            <div className="flex justify-between items-end w-full">
+              <h2 className="text-xl">{item.name}</h2>
+              <span className="text-xl">
                 $
                 {typeof item.price === "number"
                   ? item.price
                   : parseFloat(item.price)}
               </span>
             </div>
+
+            <p>
+              Size: {item.size}. {item.description}
+            </p>
           </div>
-          <p>
-            Size: {item.size}. {item.description}
-          </p>
         </div>
         <div className="flex flex-col gap-2">
           <AlertDialog>
