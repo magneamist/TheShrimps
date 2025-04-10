@@ -1,7 +1,9 @@
 import { Clerk } from "@clerk/clerk-sdk-node";
-import { userDetailModel } from "../models/userDetailModel.js";
+import db from "../models/index.js";
 
-const clerk = new Clerk({ apiKey: process.env.CLERK_API_KEY });
+const { userDetailModel } = db;
+
+const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
 export const userDetailController = {
   signup: async (req, res) => {
@@ -39,33 +41,6 @@ export const userDetailController = {
     }
   },
 
-  login: async (req, res) => {
-    try {
-      const { email, password } = req.body;
-
-      if (!email || !password) {
-        return res.status(400).json({ message: "Email and password are required." });
-      }
-
-      const user = await clerk.users.verifyPassword({ email, password });
-
-      if (!user) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
-
-      const session = await clerk.sessions.create({ userId: user.id });
-
-      res.json({
-        message: "Login successful",
-        token: session.jwtToken,
-        clerk_user_id: user.id,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error logging in." });
-    }
-  },
-
   getUserDetails: async (req, res) => {
     try {
       const users = await userDetailModel.findAll();
@@ -78,12 +53,14 @@ export const userDetailController = {
 
   getUserDetailById: async (req, res) => {
     const { id } = req.params;
+
     try {
-      const user = await userDetailModel.findByPk(id);
-      if (!user) {
+      const userDetail = await userDetailModel.findByPk(id);
+      if (!userDetail) {
         return res.status(404).json({ message: "User not found." });
       }
-      res.json(user);
+
+      res.json(userDetail);
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error getting user." });
@@ -92,7 +69,17 @@ export const userDetailController = {
 
   createUserDetail: async (req, res) => {
     try {
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       if (!clerk_user_id || !firstname || !lastname || !email) {
         return res.status(400).json({ message: "Missing required fields" });
@@ -122,13 +109,24 @@ export const userDetailController = {
 
   updateUserDetail: async (req, res) => {
     const { id } = req.params;
+
     try {
       const user = await userDetailModel.findByPk(id);
       if (!user) {
         return res.status(404).json({ message: "User not found." });
       }
 
-      const { clerk_user_id, firstname, lastname, email, phoneNum, city, zip, billAddress, favorite } = req.body;
+      const {
+        clerk_user_id,
+        firstname,
+        lastname,
+        email,
+        phoneNum,
+        city,
+        zip,
+        billAddress,
+        favorite,
+      } = req.body;
 
       let profile_image = req.file ? req.file.filename : user.profile_image;
 
@@ -154,6 +152,7 @@ export const userDetailController = {
 
   deleteUserDetail: async (req, res) => {
     const { id } = req.params;
+
     try {
       const user = await userDetailModel.findByPk(id);
       if (!user) {

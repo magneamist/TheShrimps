@@ -4,6 +4,7 @@ import Image from "next/image";
 import { StarRating } from "@/components/star-rating";
 import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 export default function ProfileCard() {
   const [rating, setRating] = useState(3);
@@ -20,7 +21,10 @@ export default function ProfileCard() {
   const userName = user?.fullName || user?.username || "User";
 
   return (
-    <div className="col-span-6 sm:col-span-4 flex flex-col items-center gap-1">
+    <Link
+      href={`/profile/${user?.id}`}
+      className="col-span-6 sm:col-span-4 flex flex-col items-center gap-1"
+    >
       <Card className="w-full h-52 py-4 flex flex-col items-center shadow-none border-(--lightPink)">
         <CardContent className="h-full flex flex-col items-center gap-2">
           <div className="relative w-[100px] h-[100px]">
@@ -43,6 +47,6 @@ export default function ProfileCard() {
           />
         </CardContent>
       </Card>
-    </div>
+    </Link>
   );
 }

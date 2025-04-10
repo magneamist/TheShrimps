@@ -14,7 +14,6 @@ export default async function UserInfo() {
   // const fullName = `${firstName} ${lastName}`;
   // const profileImage = userDetails.profileImage || "/blank-profile.png";
 
-  const userId = await getUserId();
   return (
     <>
       <Header title="User Information"/>
