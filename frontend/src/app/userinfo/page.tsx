@@ -2,7 +2,8 @@ import { SignOutButton } from "@clerk/nextjs";
 import { getUserId } from "../data/queries";
 
 import Header from "@/components/ui/header";
-import Dropdowns from "@/components/ui/user";
+import User from "@/components/ui/user";
+import { Children } from "react";
 
 export default async function UserInfo() {
   // const userDetails = await getUserDetails();
@@ -16,9 +17,11 @@ export default async function UserInfo() {
   const userId = await getUserId();
   return (
     <>
-      <h1>Hi, {userId}</h1>
-      <SignOutButton />
-      <Dropdowns />
+      <Header title="User Information"/>
+      <User />
+      <div className="absolute bottom-25 left-1/2 transform -translate-x-1/2 mb-4">
+        <SignOutButton />
+      </div>
     </>
   );
 }

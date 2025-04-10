@@ -3,10 +3,12 @@
 import React, { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 
-const Dropdowns = () => {
+import Image from 'next/image';
+import pfp from '../../../public/blank-profile.png'
+
+const User = () => {
 
     const { user } = useUser();
-    console.log(user);
 
   // State to manage visibility of each dropdown
   const [isDropdown1Open, setDropdown1Open] = useState(false);
@@ -25,36 +27,92 @@ const Dropdowns = () => {
   };
 
   return (
-    <div>
-      <button onClick={() => toggleDropdown(1)}>User Information</button>
-      {isDropdown1Open && (
-        <ul>
-          <li>
-            <p>User ID</p>
-            {user?.id}
-          </li>
-          <li>
-            <p>Username</p>
-            {user?.username}
-          </li>
-        </ul>
-      )}
+ <div className="w-full max-w-md mx-auto text-black font-sans">
+  <Image src={pfp} alt="Profile Picture." className="w-32 h-32 rounded-full mx-auto my-5"/>
+  <h2 className='block text-center my-2'>{user?.fullName}</h2>
+  {/* User Info */}
+  <div className="border-t border-b border-black mb-2">
+    <button
+      onClick={() => toggleDropdown(1)}
+      className="w-full flex justify-between items-center px-4 py-3 text-lg font-medium focus:outline-none"
+    >
+      User Information
+      <svg
+        className={`w-5 h-5 transition-transform duration-300 ${
+          isDropdown1Open ? "rotate-180" : ""
+        }`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    {isDropdown1Open && (
+      <ul className="px-4 pb-4 text-sm text-gray-700 space-y-2">
+        <li>
+          <p className="text-gray-500">User ID</p>
+          <p>{user?.id}</p>
+        </li>
+        <li>
+          <p className="text-gray-500">Username</p>
+          <p>{user?.username}</p>
+        </li>
+      </ul>
+    )}
+  </div>
 
-      <button onClick={() => toggleDropdown(2)}>Items</button>
-      {isDropdown2Open && (
-        <ul>
-            <p>Empty.</p>
-        </ul>
-      )}
+  {/* Items */}
+  <div className="border-b border-black mb-2">
+    <button
+      onClick={() => toggleDropdown(2)}
+      className="w-full flex justify-between items-center px-4 py-3 text-lg font-medium focus:outline-none"
+    >
+      Selling
+      <svg
+        className={`w-5 h-5 transition-transform duration-300 ${
+          isDropdown2Open ? "rotate-180" : ""
+        }`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    {isDropdown2Open && (
+      <ul className="px-4 pb-4 text-sm text-gray-700">
+        <p>Empty.</p>
+      </ul>
+    )}
+  </div>
 
-      <button onClick={() => toggleDropdown(3)}>Empty.</button>
-      {isDropdown3Open && (
-        <ul>
-            <p>Empty.</p>
-        </ul>
-      )}
-    </div>
+  {/* Empty */}
+  <div className="border-b border-black">
+    <button
+      onClick={() => toggleDropdown(3)}
+      className="w-full flex justify-between items-center px-4 py-3 text-lg font-medium focus:outline-none"
+    >
+      Empty
+      <svg
+        className={`w-5 h-5 transition-transform duration-300 ${
+          isDropdown3Open ? "rotate-180" : ""
+        }`}
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    {isDropdown3Open && (
+      <ul className="px-4 pb-4 text-sm text-gray-700">
+        <p>Empty.</p>
+      </ul>
+    )}
+  </div>
+</div>
   );
 };
 
-export default Dropdowns;
+export default User;
