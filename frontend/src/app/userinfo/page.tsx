@@ -2,7 +2,7 @@ import { SignOutButton } from "@clerk/nextjs";
 import { getUserId } from "../data/queries";
 
 import Header from "@/components/ui/header";
-import User from "@/components/ui/user";
+import User from "@/components/ui/user-info";
 import { Children } from "react";
 
 export default async function UserInfo() {
