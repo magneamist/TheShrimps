@@ -1,8 +1,7 @@
 import { Clerk } from "@clerk/clerk-sdk-node";
 import db from "../models/index.js";
 
-const { UserDetail } = db;  // Cambiar 'userDetailModel' a 'UserDetail'
-
+const { UserDetail } = db;
 
 const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
@@ -167,5 +166,5 @@ export const userDetailController = {
       console.error(error);
       res.status(500).json({ message: "Error deleting user." });
     }
-  }
+  },
 };

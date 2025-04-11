@@ -2,7 +2,7 @@
 
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('userdetails', { // Asegúrate de que el nombre sea en minúsculas
+    await queryInterface.createTable('userdetails', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -59,6 +59,6 @@ export default {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('userdetails'); // Usa el nombre correcto de la tabla
+    await queryInterface.dropTable('userdetails');
   }
 };

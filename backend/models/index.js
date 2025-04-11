@@ -18,13 +18,11 @@ const db = {};
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// Definir modelos
 db.UserDetail = defineUserDetail(sequelize);
 db.Item = defineItem(sequelize);
 db.UserFavorite = defineUserFavorite(sequelize);
 db.ItemFavorite = defineItemFavorite(sequelize);
 
-// Asociaciones
 db.Item.belongsTo(db.UserDetail, { foreignKey: 'seller_id', as: 'seller' });
 db.Item.belongsTo(db.UserDetail, { foreignKey: 'bought_id', as: 'buyer' });
 
@@ -34,10 +32,9 @@ db.ItemFavorite.belongsTo(db.Item, { foreignKey: 'item_id', as: 'item' });
 db.UserFavorite.belongsTo(db.UserDetail, { foreignKey: 'user_id', as: 'user' });
 db.UserFavorite.belongsTo(db.UserDetail, { foreignKey: 'favorite_user_id', as: 'favoriteUser' });
 
-// Sincronización opcional
 db.syncDB = async () => {
   try {
-    await sequelize.sync({ force: true }); // Cambiá esto a `false` si querés mantener datos
+    await sequelize.sync({ force: true });
     console.log("Base de datos sincronizada.");
   } catch (err) {
     console.error("Error al sincronizar la base de datos:", err);
