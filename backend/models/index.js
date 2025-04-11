@@ -6,7 +6,8 @@ import defineUserDetail from './userDetailModel.js';
 import defineItemFavorite from './itemFavoriteModel.js';
 import defineUserFavorite from './userFavoriteModel.js';
 
-const env = process.env.NODE_ENV || 'development';
+// const env = process.env.NODE_ENV || 'development';
+const env = 'development';
 const config = configFile[env];
 
 const sequelize = config.use_env_variable

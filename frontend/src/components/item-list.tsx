@@ -15,7 +15,7 @@ const ItemList: React.FC = () => {
       {items.map((item) => (
         <div key={item.id} className="border rounded shadow p-4">
           <img
-            src={`http://localhost:4000/images/${item.image}`}
+            src={`http://localhost:8080/images/${item.image}`}
             alt={item.name}
             className="w-full h-40 object-cover mb-2"
           />
