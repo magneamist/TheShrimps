@@ -8,7 +8,7 @@ export default {
     username: process.env.MYSQL_USER_DEV,
     password: process.env.MYSQL_PASSWORD_DEV,
     database: process.env.MYSQL_DATABASE_DEV,
-    host: process.env.DB_HOST_DEV || "localhost",  // Cambiar según el entorno
+    host: process.env.DB_HOST_DEV || "localhost",
     dialect: 'mysql',
     port: process.env.DB_PORT || 3306,
   },
@@ -24,9 +24,9 @@ export default {
     username: process.env.MYSQL_USER,
     password: process.env.MYSQL_PASSWORD,
     database: process.env.MYSQL_DATABASE,
-    host: process.env.DB_HOST,  // 'db' en Docker
+    host: process.env.DB_HOST,
     dialect: 'mysql',
-    port: process.env.DB_PORT || 3306,  // El puerto correcto es 3306
+    port: process.env.DB_PORT || 3306,
   },
 };
 
