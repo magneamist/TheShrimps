@@ -12,7 +12,7 @@ export default {
         city: "Madrid",
         zip: "28001",
         billAddress: "Calle Mayor 123",
-        favorite: "NO", // Enum value: YES or NO
+        favorite: "NO",
         profile_image: "default.jpg",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -26,7 +26,7 @@ export default {
         city: "Barcelona",
         zip: "08001",
         billAddress: "Avenida Diagonal 456",
-        favorite: "YES", // Enum value: YES or NO
+        favorite: "YES",
         profile_image: "default.jpg",
         createdAt: new Date(),
         updatedAt: new Date()

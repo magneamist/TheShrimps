@@ -4,18 +4,16 @@ import path from "path";
 
 const { Item } = db;
 
-
-// Configuración de Multer directamente en el controlador
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "uploads/");
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // Nombre único para cada archivo
+    cb(null, Date.now() + path.extname(file.originalname));
   },
 });
 
-const upload = multer({ storage }).single("image"); // Aceptar un solo archivo de imagen
+const upload = multer({ storage }).single("image");
 
 export const getItems = async (req, res) => {
   const { limit = 10, offset = 0 } = req.query;
