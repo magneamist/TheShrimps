@@ -11,11 +11,11 @@ export default function Header({ title }: { title?: string }) {
         <button onClick={() => router.back()}>
           <ArrowLeft
             strokeWidth={1.5}
-            size={34}
+            size={28}
             className="absolute top-0 left-0"
           />
         </button>
-        <h1 className="text-2xl">{title}</h1>
+        <h1 className="text-xl">{title}</h1>
       </div>
     </div>
   );
