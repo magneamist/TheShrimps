@@ -117,6 +117,17 @@ export default function ItemPage() {
           </div>
         </div>
         <div className="flex flex-col gap-2">
+          <Button
+            size={"lg"}
+            className="bg-(--blue) hover:bg-(--blue)/80 text-white"
+          >
+            {item.favorite === "YES" ? "Already" : "Add to"} favorite
+            <HeartIcon
+              strokeWidth="3"
+              stroke="white"
+              fill={item.favorite === "YES" ? "white" : "none"}
+            />
+          </Button>
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button size={"lg"}>Add to bag</Button>
@@ -147,17 +158,6 @@ export default function ItemPage() {
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
-          <Button
-            size={"lg"}
-            className="bg-(--blue) hover:bg-(--blue)/80 text-white"
-          >
-            {item.favorite === "YES" ? "Already" : "Add to"} favorite
-            <HeartIcon
-              strokeWidth="3"
-              stroke="white"
-              fill={item.favorite === "YES" ? "white" : "none"}
-            />
-          </Button>
         </div>
         <div className="flex flex-col w-full">
           <p className="pl-2 pb-1 text-sm text-muted-foreground">Owner</p>
