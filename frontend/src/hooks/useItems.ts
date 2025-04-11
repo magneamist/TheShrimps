@@ -18,9 +18,11 @@ export function useItems() {
         setLoading(true);
         
         // Use mock data or fetch from API
-        const data = USE_MOCKS 
-          ? mockItems 
-          : await fetchItems();
+        const data = 
+        // USE_MOCKS 
+        //   ? mockItems 
+        //   : 
+          await fetchItems();
           
         setItems(data);
       } catch (err) {
