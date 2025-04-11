@@ -71,7 +71,6 @@ export default function ItemPage() {
       ? normalizedImagePath
       : "/clothing-placeholder.png";
 
-  // // Determine the image source
   // const imageUrl =
   //   item.image && !imageError
   //     ? `http://localhost:4000/images/${item.image}`
