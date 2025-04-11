@@ -2,7 +2,8 @@ import db from "../models/index.js";
 import multer from "multer";
 import path from "path";
 
-const { itemModel } = db;
+const { Item } = db;
+
 
 // Configuración de Multer directamente en el controlador
 const storage = multer.diskStorage({
@@ -19,7 +20,7 @@ const upload = multer({ storage }).single("image"); // Aceptar un solo archivo d
 export const getItems = async (req, res) => {
   const { limit = 10, offset = 0 } = req.query;
   try {
-    const items = await itemModel.findAndCountAll({
+    const items = await Item.findAndCountAll({
       limit: parseInt(limit),
       offset: parseInt(offset),
     });
@@ -32,7 +33,7 @@ export const getItems = async (req, res) => {
 
 export const getItemById = async (req, res) => {
   try {
-    const item = await itemModel.findOne({
+    const item = await Item.findOne({
       where: { id: req.params.id },
     });
 
@@ -76,7 +77,7 @@ export const createItem = async (req, res) => {
     }
 
     try {
-      const newItem = await itemModel.create({
+      const newItem = await Item.create({
         name,
         description,
         size,
@@ -106,7 +107,7 @@ export const updateItem = async (req, res) => {
     }
 
     try {
-      const item = await itemModel.findByPk(id);
+      const item = await Item.findByPk(id);
 
       if (!item) {
         return res.status(404).json({ message: "Item not found" });
@@ -148,7 +149,7 @@ export const updateItem = async (req, res) => {
 export const deleteItem = async (req, res) => {
   const { id } = req.params;
   try {
-    const item = await itemModel.findByPk(id);
+    const item = await Item.findByPk(id);
 
     if (!item) {
       return res.status(404).json({ message: "Item not found" });

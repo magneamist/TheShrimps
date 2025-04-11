@@ -1,7 +1,8 @@
 import { Clerk } from "@clerk/clerk-sdk-node";
 import db from "../models/index.js";
 
-const { userDetailModel } = db;
+const { UserDetail } = db;  // Cambiar 'userDetailModel' a 'UserDetail'
+
 
 const clerk = new Clerk({ apiKey: process.env.CLERK_SECRET_KEY });
 
@@ -23,7 +24,7 @@ export const userDetailController = {
 
       const session = await clerk.sessions.create({ userId: user.id });
 
-      const newUser = await userDetailModel.create({
+      const newUser = await UserDetail.create({
         clerk_user_id: user.id,
         firstname,
         lastname,
@@ -43,7 +44,7 @@ export const userDetailController = {
 
   getUserDetails: async (req, res) => {
     try {
-      const users = await userDetailModel.findAll();
+      const users = await UserDetail.findAll();
       res.json(users);
     } catch (error) {
       console.error(error);
@@ -55,7 +56,7 @@ export const userDetailController = {
     const { id } = req.params;
 
     try {
-      const userDetail = await userDetailModel.findByPk(id);
+      const userDetail = await UserDetail.findByPk(id);
       if (!userDetail) {
         return res.status(404).json({ message: "User not found." });
       }
@@ -87,7 +88,7 @@ export const userDetailController = {
 
       const profile_image = req.file ? req.file.filename : null;
 
-      const newUser = await userDetailModel.create({
+      const newUser = await UserDetail.create({
         clerk_user_id,
         firstname,
         lastname,
@@ -111,7 +112,7 @@ export const userDetailController = {
     const { id } = req.params;
 
     try {
-      const user = await userDetailModel.findByPk(id);
+      const user = await UserDetail.findByPk(id);
       if (!user) {
         return res.status(404).json({ message: "User not found." });
       }
@@ -154,7 +155,7 @@ export const userDetailController = {
     const { id } = req.params;
 
     try {
-      const user = await userDetailModel.findByPk(id);
+      const user = await UserDetail.findByPk(id);
       if (!user) {
         return res.status(404).json({ message: "User not found." });
       }
