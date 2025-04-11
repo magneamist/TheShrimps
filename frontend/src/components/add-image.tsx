@@ -23,7 +23,7 @@ function AddImage() {
     formData.append("image", file);
 
     try {
-      const res = await fetch("http://localhost:4000/fileupload", {
+      const res = await fetch("http://localhost:8080/fileupload", {
         method: "POST",
         body: formData,
       });

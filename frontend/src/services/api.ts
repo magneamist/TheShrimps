@@ -13,7 +13,7 @@ export type Item = {
   updatedAt?: string;
 };
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
 
 export const fetchItems = async (): Promise<Item[]> => {
   try {

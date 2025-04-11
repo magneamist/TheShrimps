@@ -33,7 +33,7 @@ const ArticlePost: React.FC = () => {
       formData.append("imageUrl", "test");
 
       try {
-        const res = await fetch('http://localhost:4000/item', {
+        const res = await fetch('http://localhost:8080/api/item', {
           method: 'POST',
           body: formData
         });
